@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RedactSafe - AI-Powered Privacy Protection</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'images/favicon.svg' %}"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .font-orbitron {
+        font-family: "Orbitron", sans-serif;
+      }
+      .glass-nav {
+        background: rgba(24, 24, 27, 0.85);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-950 text-white min-h-screen">
+    <!-- Glassmorphic Navbar -->
+    <nav class="glass-nav sticky top-0 z-50 w-full">
+      <div
+        class="max-w-7xl mx-auto px-6 flex justify-between items-center h-16"
+      >
+        <span
+          class="text-2xl font-orbitron font-extrabold tracking-widest text-red-500"
+          >RedactSafe</span
+        >
+        <div class="flex items-center space-x-2">
+          <!-- Sign In Button + Icon -->
+          <a
+            href="{% url 'Login' %}"
+            class="flex items-center px-3 py-2 rounded-full bg-[#D38D36] hover:bg-amber-600 text-white font-regular text-sm transition shadow-md ml-2"
+          >
+            Sign In
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section: Red Theme, Glassmorphism, Minimal Accent -->
+    <section class="relative py-20 px-6 bg-gray-900">
+      <div
+        class="max-w-4xl mx-auto flex flex-col items-center justify-center glass red-glow p-10"
+      >
+        <div class="mb-6">
+          <svg
+            class="w-16 h-16 text-red-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 48 48"
+          >
+            <circle
+              cx="24"
+              cy="24"
+              r="20"
+              stroke="currentColor"
+              stroke-width="3"
+              fill="none"
+            />
+            <path
+              d="M16 24v-4a8 8 0 1 1 16 0v4"
+              stroke="currentColor"
+              stroke-width="3"
+            />
+            <rect
+              x="16"
+              y="24"
+              width="16"
+              height="12"
+              rx="3"
+              fill="currentColor"
+              class="text-red-500"
+            />
+          </svg>
+        </div>
+        <h2
+          class="text-4xl md:text-5xl font-extrabold mb-4 text-white font-orbitron tracking-wide text-center drop-shadow"
+        >
+          AI-Powered Redaction. <span class="text-red-500">Total Control.</span>
+        </h2>
+        <p class="text-gray-200 text-lg md:text-xl mb-8 text-center max-w-2xl">
+          Protect sensitive data in documents with automated redaction and
+          blockchain-backed audit trails.
+        </p>
+        <a
+          href="{% url 'redact_document' %}"
+          class="inline-block px-8 py-4 text-lg font-bold rounded-xl bg-red-600 hover:bg-red-700 transition text-white shadow-lg font-orbitron"
+        >
+          Get Started
+        </a>
+      </div>
+    </section>
+
+    <!-- Feature Cards: Red Accents Only -->
+    <section class="py-16 px-6">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div
+          class="glass p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform group border border-red-500"
+        >
+          <div class="mb-3 flex items-center justify-center">
+            <span
+              class="text-3xl text-red-500 group-hover:scale-125 transition-transform"
+              >🛡️</span
+            >
+          </div>
+          <h3 class="text-xl font-bold text-red-500 mb-2 font-orbitron">
+            AI PII Redaction
+          </h3>
+          <p class="text-gray-100 text-sm">
+            Automatic masking of personal data from PDFs and images with high
+            precision.
+          </p>
+        </div>
+        <div
+          class="glass p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform group border border-red-500"
+        >
+          <div class="mb-3 flex items-center justify-center">
+            <span
+              class="text-3xl text-red-500 group-hover:scale-125 transition-transform"
+              >🔗</span
+            >
+          </div>
+          <h3 class="text-xl font-bold text-red-500 mb-2 font-orbitron">
+            Blockchain Logging
+          </h3>
+          <p class="text-gray-100 text-sm">
+            All actions are recorded immutably to ensure auditability and
+            transparency.
+          </p>
+        </div>
+        <div
+          class="glass p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform group border border-red-500"
+        >
+          <div class="mb-3 flex items-center justify-center">
+            <span
+              class="text-3xl text-red-500 group-hover:scale-125 transition-transform"
+              >⚡</span
+            >
+          </div>
+          <h3 class="text-xl font-bold text-red-500 mb-2 font-orbitron">
+            Live Preview
+          </h3>
+          <p class="text-gray-100 text-sm">
+            Preview your redacted files before download with smooth rendering
+            UI.
+          </p>
+        </div>
+        <div
+          class="glass p-8 rounded-2xl shadow-lg hover:scale-105 hover:shadow-2xl transition-transform group border border-red-500"
+        >
+          <div class="mb-3 flex items-center justify-center">
+            <span
+              class="text-3xl text-red-500 group-hover:scale-125 transition-transform"
+              >🔌</span
+            >
+          </div>
+          <h3 class="text-xl font-bold text-red-500 mb-2 font-orbitron">
+            API Integration
+          </h3>
+          <p class="text-gray-100 text-sm">
+            Plug our service directly into your web or mobile app with powerful
+            APIs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action: Red Only -->
+    <section class="bg-gray-900 py-20 text-center">
+      <h2
+        class="text-3xl md:text-4xl font-bold mb-4 font-orbitron tracking-wide text-white"
+      >
+        Redact with Confidence
+      </h2>
+      <p class="text-gray-300 max-w-xl mx-auto mb-6">
+        Join the future of secure data redaction and compliance. Start
+        protecting your information now.
+      </p>
+      <a
+        href="{% url 'Signup' %}"
+        class="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg font-orbitron transition"
+      >
+        Create Your Account
+      </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-6 text-center text-sm text-gray-500">
+      &copy; 2025 <span class="font-orbitron text-red-400">RedactSafe</span>.
+      All rights reserved.
+    </footer>
+  </body>
+</html>

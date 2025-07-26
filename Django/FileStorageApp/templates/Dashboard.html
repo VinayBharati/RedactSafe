@@ -1,0 +1,371 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RedactSafe Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'images/favicon.svg' %}"
+    />
+    <style>
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background-color: #111113;
+      }
+    </style>
+  </head>
+  <body class="bg-[#18191B] text-white">
+    <!-- Top Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-black border-b border-gray-800 z-50 px-8 py-4 flex items-center justify-between"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="{% static 'images/blockchain.svg' %}"
+          alt="Logo"
+          class="h-7 ml-2"
+        />
+        <span class="text-2xl font-semibold">RedactSafe</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          Documentation <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          API Reference <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <button
+          class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-moon text-gray-400 text-sm"></i>
+        </button>
+        <div class="flex items-center space-x-2">
+          <a
+            href="Login.html"
+            class="flex items-center px-3 py-2 rounded-full bg-red-700 hover:bg-red-600 text-white font-regular text-sm transition shadow-md"
+          >
+            Log Out
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside
+      class="fixed left-0 top-16 w-64 bg-black border-r border-gray-800 h-full flex flex-col justify-between z-40"
+    >
+      <div>
+        <nav class="mt-5 flex flex-col gap-3">
+          <a
+            href="{% url 'Dashboard' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-md transition-all bg-red-700 hover:bg-red-600 text-white"
+          >
+            <i class="fas fa-home w-5"></i>
+            <span>Overview</span>
+          </a>
+          <a
+            href="{% url 'redact_document' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white"
+          >
+            <i class="fas fa-address-card w-5 text-sm"></i>
+            <span>Redaction</span>
+          </a>
+          <a
+            href="{% url 'SharedData' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white"
+          >
+            <i class="fas fa-shield-alt w-5 text-sm"></i>
+            <span>Share Secured Data</span>
+          </a>
+          <a
+            href="{% url 'ViewSharedMessages' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white"
+          >
+            <i class="fas fa-envelope w-5 text-sm"></i>
+            <span>Shared Messages</span>
+          </a>
+          <a
+            href="{% url 'ViewRequest' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white"
+          >
+            <i class="fas fa-comment w-5 text-sm"></i>
+            <span>View Request</span>
+          </a>
+          <a
+            href="{% url 'communication_graph' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white"
+          >
+            <i class="fa-solid fa-chart-simple w-5 text-sm"></i>
+            <span>Graph</span>
+          </a>
+        </nav>
+      </div>
+      <div class="mb-20">
+        <nav class="flex flex-col gap-1">
+          <a
+            href="#"
+            class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+          >
+            <i class="fas fa-user w-5"></i> <span>Account</span>
+          </a>
+          <div class="border-t border-gray-800">
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fab fa-discord w-5"></i> <span>Discord</span>
+              <i class="fas fa-external-link-alt text-xs ml-auto"></i>
+            </a>
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fas fa-question-circle w-5"></i> <span>Help</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 pt-24 px-10 bg-[#18191B] min-h-screen">
+      <!-- Header -->
+      <header class="bg-red-700 py-6 rounded shadow-md mb-8">
+        <div class="max-w-6xl mx-auto text-center px-4">
+          <h1 class="text-3xl font-bold mb-2">
+            🔐 RedactSafe: Secure PII Detection, Redaction & Blockchain Storage
+          </h1>
+          <p class="text-gray-200 text-lg">
+            Automatically detect and redact sensitive information, then store
+            and share files securely using IPFS and Ethereum smart contracts.
+          </p>
+        </div>
+      </header>
+
+      <!-- Workflow/Architecture Diagram -->
+      <section class="max-w-5xl mx-auto mb-10">
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-8 shadow-lg"
+        >
+          <img
+            src="{% static 'images/workflow_diagram.png' %}"
+            alt="Workflow Diagram"
+            class="w-full md:w-2/5 max-w-xs mx-auto mb-4 md:mb-0"
+          />
+          <ul class="flex-1 space-y-4 text-lg">
+            <li>
+              <i class="fas fa-upload text-blue-400 mr-2"></i>
+              <b>Upload Document</b>
+            </li>
+            <li>
+              <i class="fas fa-user-secret text-yellow-400 mr-2"></i>
+              <b>PII Detection & Redaction</b>
+            </li>
+            <li>
+              <i class="fas fa-lock text-red-400 mr-2"></i>
+              <b>File Encryption</b>
+            </li>
+            <li>
+              <i class="fas fa-database text-green-400 mr-2"></i>
+              <b>Store in IPFS</b>
+            </li>
+            <li>
+              <i class="fas fa-link text-purple-400 mr-2"></i>
+              <b>Hash/Metadata on Blockchain</b>
+            </li>
+            <li>
+              <i class="fas fa-user-shield text-pink-400 mr-2"></i>
+              <b>Access Control via Smart Contract</b>
+            </li>
+            <li>
+              <i class="fas fa-share-alt text-cyan-400 mr-2"></i>
+              <b>Secure Sharing/Download</b>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Feature Cards -->
+      <section
+        class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-10"
+      >
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fas fa-user-secret text-3xl text-yellow-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">PII Detection & Redaction</h3>
+          <p class="text-gray-400 text-center">
+            Detect and redact sensitive data (PII) automatically in uploaded
+            documents.
+          </p>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fas fa-shield-alt text-3xl text-blue-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">Blockchain Access Control</h3>
+          <p class="text-gray-400 text-center">
+            Granular, immutable permissions managed via Ethereum smart
+            contracts.
+          </p>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fas fa-database text-3xl text-green-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">IPFS Storage</h3>
+          <p class="text-gray-400 text-center">
+            Efficient, decentralized file storage for tamper-proof document
+            management.
+          </p>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fas fa-share-alt text-3xl text-cyan-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">Secure Data Sharing</h3>
+          <p class="text-gray-400 text-center">
+            Share redacted files securely with selected users and organizations.
+          </p>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fas fa-file-alt text-3xl text-purple-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">Audit Trail</h3>
+          <p class="text-gray-400 text-center">
+            Immutable logs of all actions for compliance and transparency.
+          </p>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-6 flex flex-col items-center shadow-lg"
+        >
+          <i class="fa-solid fa-chart-simple text-3xl text-pink-400 mb-3"></i>
+          <h3 class="font-bold text-lg mb-1">Analytics & Graphs</h3>
+          <p class="text-gray-400 text-center">
+            Visualize document flow, access patterns, and system usage.
+          </p>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <section
+        class="max-w-6xl mx-auto flex flex-wrap gap-4 justify-center mb-10"
+      >
+        <a
+          href="{% url 'redact_document' %}"
+          class="flex items-center gap-2 px-6 py-3 bg-red-700 hover:bg-red-600 rounded-full font-semibold text-white shadow transition"
+        >
+          <i class="fas fa-marker"></i> Redact a Document
+        </a>
+        <a
+          href="{% url 'SharedData' %}"
+          class="flex items-center gap-2 px-6 py-3 bg-blue-700 hover:bg-blue-600 rounded-full font-semibold text-white shadow transition"
+        >
+          <i class="fas fa-share-alt"></i> Upload & Share
+        </a>
+        <a
+          href="{% url 'ViewSharedMessages' %}"
+          class="flex items-center gap-2 px-6 py-3 bg-green-700 hover:bg-green-600 rounded-full font-semibold text-white shadow transition"
+        >
+          <i class="fas fa-envelope"></i> View Shared Files
+        </a>
+        <a
+          href="{% url 'ViewRequest' %}"
+          class="flex items-center gap-2 px-6 py-3 bg-purple-700 hover:bg-purple-600 rounded-full font-semibold text-white shadow transition"
+        >
+          <i class="fas fa-comment"></i> View Requests
+        </a>
+      </section>
+
+      <!-- System Stats -->
+      <section
+        class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 mb-10"
+      >
+        <div
+          class="bg-[#232429] rounded-xl p-5 flex flex-col items-center shadow"
+        >
+          <span class="text-2xl font-bold text-yellow-400"
+            >{{ total_redacted|default:"0" }}</span
+          >
+          <span class="text-gray-400">Docs Redacted</span>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-5 flex flex-col items-center shadow"
+        >
+          <span class="text-2xl font-bold text-green-400"
+            >{{ total_ipfs|default:"0" }}</span
+          >
+          <span class="text-gray-400">Files on IPFS</span>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-5 flex flex-col items-center shadow"
+        >
+          <span class="text-2xl font-bold text-blue-400"
+            >{{ total_requests|default:"0" }}</span
+          >
+          <span class="text-gray-400">Access Requests</span>
+        </div>
+        <div
+          class="bg-[#232429] rounded-xl p-5 flex flex-col items-center shadow"
+        >
+          <span class="text-2xl font-bold text-pink-400"
+            >{{ last_activity|default:"--" }}</span
+          >
+          <span class="text-gray-400">Last Activity</span>
+        </div>
+      </section>
+
+      <!-- Security & Compliance Notice -->
+      <section class="max-w-5xl mx-auto mb-10">
+        <div
+          class="bg-blue-900 bg-opacity-60 rounded-lg p-4 flex items-center gap-4 shadow"
+        >
+          <i class="fas fa-shield-alt text-2xl text-blue-300"></i>
+          <span class="text-blue-100">
+            All files are processed using state-of-the-art PII detection and
+            redaction. Only cryptographically hashed pointers are stored
+            on-chain. Access is controlled via Ethereum smart contracts for
+            maximum privacy and compliance.
+          </span>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="max-w-5xl mx-auto mb-10">
+        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <i class="fas fa-history text-yellow-400"></i> Recent Activity
+        </h2>
+        <ul class="space-y-2">
+          {% for activity in recent_activities %}
+          <li
+            class="bg-[#232429] rounded px-4 py-2 flex items-center gap-3 text-gray-300"
+          >
+            <i
+              class="fas fa-circle text-xs {% if activity.type == 'redact' %}text-red-400{% elif activity.type == 'share' %}text-green-400{% elif activity.type == 'request' %}text-blue-400{% else %}text-gray-400{% endif %}"
+            ></i>
+            {{ activity.text }}
+            <span class="ml-auto text-xs text-gray-500"
+              >{{ activity.time }}</span
+            >
+          </li>
+          {% empty %}
+          <li class="text-gray-500">No recent activity.</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

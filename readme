@@ -1,0 +1,8 @@
+
+//cd block 
+
+// npx truffle migrate
+// contract address: ----> deployed_contract_address
+// account ---> one={
+//     'from':"0xf501b4887891c9BC38C45f5D30fD5A21DD920a74"
+// }

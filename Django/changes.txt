@@ -1,0 +1,8 @@
+I need a login page where user can login into system and upload their data where he can make his data public or private(either read, 
+download or none)
+When other user wants to access the private file of the other user he need to seek permission from the user who uploaded the data using a access
+control as mentioned in the research paper and the owner of the file can grant two kind of permissions either read or download
+
+If he give a permission as read the user can read the file but he can't capture or screenshot it
+
+If the user gives the permission as download the user can download the private file of the other user

@@ -1,0 +1,359 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RedactSafe Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'images/favicon.svg' %}"
+    />
+    <style>
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background-color: #111113;
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#18191B] text-white">
+    <!-- Top Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-black border-b border-gray-800 z-50 px-8 py-4 flex items-center justify-between"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="{% static 'images/blockchain.svg' %}"
+          alt="Logo"
+          class="h-7 ml-2"
+        />
+        <span class="text-2xl font-semibold">RedactSafe</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <!-- Links -->
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          Documentation <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          API Reference <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <button
+          class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-moon text-gray-400 text-sm"></i>
+        </button>
+        <div class="flex items-center space-x-2">
+          <a
+            href="/"
+            class="flex items-center px-3 py-2 rounded-full bg-red-700 hover:bg-red-600 text-white font-regular text-sm transition shadow-md"
+          >
+            Log Out
+          </a>
+        </div>
+        <!-- User avatar -->
+        <!-- <div
+          class="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-user text-gray-400"></i>
+        </div> -->
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside
+      class="fixed left-0 top-16 w-64 bg-black border-r border-gray-800 h-full flex flex-col justify-between z-40"
+    >
+      <div>
+        <nav class="mt-5 flex flex-col gap-3">
+          <a
+            href="{% url 'Dashboard' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'Dashboard' %} {% endif %}"
+          >
+            <i class="fas fa-home w-5"></i>
+            <span>Overview</span>
+          </a>
+          <a
+            href="{% url 'redact_document' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-md transition-all bg-red-700 hover:bg-red-600 text-white {% if request.resolver_match.url_name == 'redact_document' %} {% endif %}"
+          >
+            <i class="fas fa-address-card w-5"></i>
+            <span>Redaction</span>
+          </a>
+
+          <a
+            href="{% url 'SharedData' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'SharedData' %} {% endif %}"
+          >
+            <i class="fas fa-shield-alt w-5 text-sm"></i>
+            <span>Share Secured Data</span>
+          </a>
+          <a
+            href="{% url 'ViewSharedMessages' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'ViewSharedMessages' %} {% endif %}"
+          >
+            <i class="fas fa-envelope w-5 text-sm" style="color: #ffffff"></i>
+            <span>Shared Messages</span>
+          </a>
+          <a
+            href="{% url 'ViewRequest' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'ViewRequest' %} {% endif %}"
+          >
+            <i class="fas fa-comment w-5 text-sm"></i>
+            <span>View Request</span>
+          </a>
+          <a
+            href="{% url 'communication_graph' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'communication_graph' %} {% endif %}"
+          >
+            <i
+              class="fa-solid fa-chart-simple w-5 text-sm"
+              style="color: #ffffff"
+            ></i>
+            <span>Graph</span>
+          </a>
+        </nav>
+      </div>
+      <div class="mb-20">
+        <nav class="flex flex-col gap-1">
+          <a
+            href="#"
+            class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+          >
+            <i class="fas fa-user w-5"></i> <span>Account</span>
+          </a>
+          <div class="border-t border-gray-800">
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fab fa-discord w-5"></i> <span>Discord</span>
+              <i class="fas fa-external-link-alt text-xs ml-auto"></i>
+            </a>
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fas fa-question-circle w-5"></i> <span>Help</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 pt-24 px-10 bg-[#18191B] min-h-screen">
+      <header class="bg-red-700 py-5 rounded-sm shadow-md">
+        <div class="max-w-6xl mx-auto text-center px-4">
+          <h1 class="text-3xl font-bold">
+            RedactSafe: Secure Redaction Portal 🔐
+          </h1>
+          <p class="text-gray-200 mt-2">
+            Upload a document to automatically redact sensitive information.
+          </p>
+        </div>
+      </header>
+
+      <!-- Redaction Form -->
+      <section
+        class="max-w-xl mx-auto bg-white text-gray-900 mt-10 p-8 rounded-lg shadow-lg"
+      >
+        <h2 class="text-2xl font-semibold text-center mb-6">
+          Redact a Document
+        </h2>
+        {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+          <div class="p-3 rounded bg-red-100 text-red-800">{{ message }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <form
+          id="redact-form"
+          method="post"
+          enctype="multipart/form-data"
+          class="space-y-6"
+        >
+          {% csrf_token %}
+          <div>
+            <label for="document" class="block text-gray-700 font-semibold mb-2"
+              >Select document to redact:</label
+            >
+            <input
+              type="file"
+              name="document"
+              id="document"
+              required
+              accept=".pdf,.doc,.docx"
+              class="block w-full text-sm text-gray-700 m-1 bg-gray-100 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500"
+            />
+          </div>
+          <div class="text-center">
+            <button
+              type="submit"
+              class="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-6 rounded-full transition-transform transform hover:scale-105"
+            >
+              Redact Now ☝🏻
+            </button>
+          </div>
+        </form>
+
+        <!-- Green-Themed Circular Loader -->
+        <div
+          id="loader"
+          class="flex flex-col items-center justify-center mt-8 hidden"
+        >
+          <!-- Circular SVG Spinner -->
+          <svg
+            class="animate-spin h-12 w-12 text-green-600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <!-- Background circle -->
+            <circle
+              class="opacity-20"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="6"
+            ></circle>
+            <!-- Foreground animated arc -->
+            <path
+              class="opacity-80"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8v8z"
+            ></path>
+          </svg>
+
+          <!-- Text -->
+          <span
+            class="mt-4 text-green-700 font-semibold text-lg animate-fade-in"
+          >
+            Redacting, please wait…
+          </span>
+        </div>
+
+        {% if download_url or preview_url %}
+        <section
+          id="redacted-output"
+          data-redacted-output
+          class="max-w-xl mx-auto bg-gray-800 text-white mt-10 p-6 rounded-lg shadow-lg"
+        >
+          <h3 class="text-xl font-semibold mb-4">Redaction Completed ✅</h3>
+
+          <div class="flex justify-center space-x-4">
+            {% if download_url %}
+            <!-- Download Button -->
+            <a
+              href="{{ download_url }}"
+              download
+              class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-md font-semibold transition"
+            >
+              <i class="fas fa-download mr-2"></i>Download Redacted File
+            </a>
+            {% endif %} {% if preview_url %}
+            <!-- Preview Button -->
+            <button
+              id="preview-link"
+              class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-semibold transition"
+            >
+              <i class="fas fa-eye mr-2"></i>Preview File
+            </button>
+            {% endif %}
+          </div>
+
+          {% if preview_url %}
+          <!-- Preview Container -->
+          <div
+            id="preview-container"
+            class="mt-6 hidden border border-gray-600 rounded-md overflow-hidden"
+          >
+            <iframe
+              id="preview-frame"
+              src=""
+              width="100%"
+              height="500px"
+              class="rounded-md"
+            ></iframe>
+          </div>
+          {% endif %}
+        </section>
+        {% endif %}
+      </section>
+
+      <!-- JS for Loader and Preview -->
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var form = document.getElementById("redact-form");
+          var loader = document.getElementById("loader");
+          var downloadSection = document.querySelector(
+            "[data-redacted-output]"
+          );
+
+          if (form && loader) {
+            form.addEventListener("submit", function () {
+              loader.classList.remove("hidden");
+            });
+          }
+          // Hide loader if output section is present (i.e. after processing)
+          if (downloadSection && loader) {
+            loader.classList.add("hidden");
+          }
+
+          // Preview logic (unchanged)
+          var previewLink = document.getElementById("preview-link");
+          var previewContainer = document.getElementById("preview-container");
+          var previewFrame = document.getElementById("preview-frame");
+
+          if (previewLink && previewFrame && previewContainer) {
+            previewLink.addEventListener("click", function (e) {
+              e.preventDefault();
+              previewFrame.src = "{{ preview_url }}";
+              previewContainer.classList.remove("hidden");
+              previewContainer.scrollIntoView({ behavior: "smooth" });
+            });
+          }
+
+          // ---- PASTE THIS BLOCK HERE ----
+          // Reset UI when a new file is selected
+          var fileInput = document.getElementById("document");
+          var redactedOutput = document.getElementById("redacted-output");
+
+          if (fileInput) {
+            fileInput.addEventListener("change", function () {
+              // Hide redacted output section if visible
+              if (redactedOutput) {
+                redactedOutput.style.display = "none";
+              }
+              // Hide loader if visible
+              if (loader) {
+                loader.classList.add("hidden");
+              }
+              // Hide preview if open
+              if (previewContainer) {
+                previewContainer.classList.add("hidden");
+              }
+            });
+          }
+          // ---- END OF NEW BLOCK ----
+        });
+      </script>
+    </main>
+  </body>
+</html>

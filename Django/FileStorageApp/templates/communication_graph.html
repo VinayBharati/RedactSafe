@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RedactSafe Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'images/favicon.svg' %}"
+    />
+    <style>
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background-color: #111113;
+      }
+    </style>
+  </head>
+  <body class="bg-[#18191B] text-white">
+    <!-- Top Navigation -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-black border-b border-gray-800 z-50 px-8 py-4 flex items-center justify-between"
+    >
+      <div class="flex items-center gap-3">
+        <img
+          src="{% static 'images/blockchain.svg' %}"
+          alt="Logo"
+          class="h-7 ml-2"
+        />
+        <span class="text-2xl font-semibold">RedactSafe</span>
+      </div>
+      <div class="flex items-center gap-8">
+        <!-- Links -->
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          Documentation <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-white text-sm">
+          API Reference <i class="fas fa-external-link-alt text-xs ml-1"></i>
+        </a>
+        <button
+          class="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-moon text-gray-400 text-sm"></i>
+        </button>
+        <div class="flex items-center space-x-2">
+          <a
+            href="/"
+            class="flex items-center px-3 py-2 rounded-full bg-red-700 hover:bg-red-600 text-white font-regular text-sm transition shadow-md"
+          >
+            Log Out
+          </a>
+        </div>
+        <!-- User avatar -->
+        <!-- <div
+          class="w-9 h-9 bg-gray-800 rounded-full flex items-center justify-center"
+        >
+          <i class="fas fa-user text-gray-400"></i>
+        </div> -->
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside
+      class="fixed left-0 top-16 w-64 bg-black border-r border-gray-800 h-full flex flex-col justify-between z-40"
+    >
+      <div>
+        <nav class="mt-5 flex flex-col gap-3">
+          <a
+            href="{% url 'Dashboard' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'Dashboard' %} {% endif %}"
+          >
+            <i class="fas fa-home w-5 text-sm"></i>
+            <span>Overview</span>
+          </a>
+          <a
+            href="{% url 'redact_document' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'redact_document' %} {% endif %}"
+          >
+            <i class="fas fa-address-card w-5 text-sm"></i>
+            <span>Redaction</span>
+          </a>
+
+          <a
+            href="{% url 'SharedData' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'SharedData' %} {% endif %}"
+          >
+            <i class="fas fa-shield-alt w-5 text-sm"></i>
+            <span>Share Secured Data</span>
+          </a>
+          <a
+            href="{% url 'ViewSharedMessages' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'ViewSharedMessages' %} {% endif %}"
+          >
+            <i class="fas fa-envelope w-5 text-sm" style="color: #ffffff"></i>
+            <span>Shared Messages</span>
+          </a>
+          <a
+            href="{% url 'ViewRequest' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-sm transition-all text-white {% if request.resolver_match.url_name == 'ViewRequest' %} {% endif %}"
+          >
+            <i class="fas fa-comment w-5 text-sm"></i>
+            <span>View Request</span>
+          </a>
+          <a
+            href="{% url 'communication_graph' %}"
+            class="flex items-center gap-2 px-3 py-2 mx-3 rounded-md font-medium text-md transition-all bg-red-700 hover:bg-red-600 text-white {% if request.resolver_match.url_name == 'communication_graph' %} {% endif %}"
+          >
+            <i class="fa-solid fa-chart-simple w-5" style="color: #ffffff"></i>
+            <span>Graph</span>
+          </a>
+        </nav>
+      </div>
+      <div class="mb-20">
+        <nav class="flex flex-col gap-1">
+          <a
+            href="#"
+            class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+          >
+            <i class="fas fa-user w-5"></i> <span>Account</span>
+          </a>
+          <div class="border-t border-gray-800">
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fab fa-discord w-5"></i> <span>Discord</span>
+              <i class="fas fa-external-link-alt text-xs ml-auto"></i>
+            </a>
+            <a
+              href="#"
+              class="flex items-center gap-2 px-5 py-3 rounded-xl font-medium text-sm text-gray-300 hover:bg-[#232429] hover:text-white transition-all"
+            >
+              <i class="fas fa-question-circle w-5"></i> <span>Help</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 pt-24 px-10 bg-[#18191B] min-h-screen">
+      <section class="bg-red-700 py-5 rounded shadow-md">
+        <div class="max-w-6xl mx-auto text-center px-4">
+          <h1 class="text-3xl font-bold">RedactSafe: Communication Graph 📊</h1>
+          <p class="text-gray-200 mt-2">Visualize document flow, access patterns, and system usage.</p>
+        </div>
+      </section>
+
+      <!-- templates/ViewRequest.html -->
+      <section
+        class="max-w-3xl mx-auto mt-10 bg-white rounded shadow p-6 flex flex-col items-center"
+      >
+        <h2 class="text-xl font-semibold mb-4 text-black">Visualization</h2>
+        {% if image_base64 %}
+        <img
+          src="data:image/png;base64,{{ image_base64 }}"
+          alt="Communication Overhead Graph"
+          class="rounded shadow"
+          style="max-width: 100%; height: auto"
+        />
+        {% else %}
+        <p>No graph data available.</p>
+        {% endif %}
+        <!-- <div class="mt-6 text-gray-600">Welcome {{ username }}</div> -->
+      </section>
+    </main>
+  </body>
+</html>
